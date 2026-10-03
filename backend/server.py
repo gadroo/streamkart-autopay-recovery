@@ -403,21 +403,26 @@ def list_customers(x_api_key: Optional[str] = Header(None)):
     _check_auth(x_api_key)
     personas = []
     for cid, c in STATE.items():
-        reason_map = {
-            "insufficient_balance": "insufficient balance",
-            "card_expired": "expired card",
-            "bank_blocked": "bank blocked card",
-            "mandate_revoked": "mandate revoked",
-            "mandate_expired": "mandate expired",
-            None: "no failure"
-        }
+        # Convert amount to spoken form (e.g., 299 -> "two hundred ninety nine rupees")
+        amount = c["amount_inr"]
+        if amount == 199:
+            amount_spoken = "one hundred ninety nine rupees"
+        elif amount == 299:
+            amount_spoken = "two hundred ninety nine rupees"
+        elif amount == 349:
+            amount_spoken = "three hundred forty nine rupees"
+        elif amount == 499:
+            amount_spoken = "four hundred ninety nine rupees"
+        elif amount == 4999:
+            amount_spoken = "four thousand nine hundred ninety nine rupees"
+        else:
+            amount_spoken = f"{amount} rupees"
+            
         personas.append({
             "customer_id": cid,
             "name": c["name"],
             "plan": c["plan"],
-            "amount_inr": c["amount_inr"],
-            "failure_reason": reason_map.get(c["failure_reason"], c["failure_reason"]),
-            "scenario": c.get("notes", "")[:80]
+            "amount": amount_spoken
         })
     return {"personas": personas}
 
