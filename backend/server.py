@@ -224,16 +224,45 @@ def get_recovery_context(body: CtxIn, x_api_key: Optional[str] = Header(None)):
     
     allowed = _recovery_options(c)
     _audit("context_lookup", {"customer_id": c["customer_id"]})
+    # Convert amount to spoken form for natural pronunciation
+    amount = c["amount_inr"]
+    if amount == 199:
+        amount_spoken = "one hundred ninety nine rupees"
+    elif amount == 299:
+        amount_spoken = "two hundred ninety nine rupees"
+    elif amount == 349:
+        amount_spoken = "three hundred forty nine rupees"
+    elif amount == 499:
+        amount_spoken = "four hundred ninety nine rupees"
+    elif amount == 4999:
+        amount_spoken = "four thousand nine hundred ninety nine rupees"
+    else:
+        amount_spoken = f"{amount} rupees"
+    
+    # Convert card last 4 digits to spoken form (digit by digit)
+    method_detail = c["method_detail"]
+    # Extract last 4 digits and spell them out
+    import re
+    last4_match = re.search(r'ending (\d{4})', method_detail)
+    if last4_match:
+        digits = last4_match.group(1)
+        digit_names = {"0": "zero", "1": "one", "2": "two", "3": "three", "4": "four",
+                      "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine"}
+        spoken_digits = " ".join(digit_names[d] for d in digits)
+        method_detail_spoken = method_detail.replace(f"ending {digits}", f"ending {spoken_digits}")
+    else:
+        method_detail_spoken = method_detail
+    
     return {
         "found": True,
         "customer": {
             "customer_id": c["customer_id"],
             "name": c["name"],
             "plan": c["plan"],
-            "amount_inr": c["amount_inr"],
+            "amount_spoken": amount_spoken,
             "billing_cycle": c["billing_cycle"],
             "payment_method": c["payment_method"],
-            "method_detail": c["method_detail"],
+            "method_detail_spoken": method_detail_spoken,
             "language_pref": c["language_pref"],
             "failure_reason": c["failure_reason"],
             "failure_reason_spoken": c["failure_reason_spoken"],
