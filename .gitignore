@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+.retell_key
+*.log
+.DS_Store
+data/call_log.jsonl
+.venv/
