@@ -89,7 +89,26 @@ def _find_by_phone(phone: str) -> Optional[dict]:
 
 def _find_by_name(name: str) -> Optional[dict]:
     """Find customer by name (case-insensitive partial match)."""
-    name_lower = name.lower().strip()
+    # Hindi to English name mapping for common Indian names
+    hindi_map = {
+        "अनन्या": "Ananya",
+        "रोहित": "Rohit",
+        "मीरा": "Meera",
+        "विक्रम": "Vikram",
+        "प्रिया": "Priya",
+        "अर्जुन": "Arjun",
+        "कविता": "Kavita",
+        "समीर": "Sameer",
+        "नेहा": "Neha",
+        "रमेश": "Ramesh"
+    }
+    
+    # Try to transliterate Hindi name to English
+    name = name.strip()
+    if name in hindi_map:
+        name = hindi_map[name]
+    
+    name_lower = name.lower()
     for c in STATE.values():
         if name_lower in c["name"].lower() or c["name"].lower() in name_lower:
             return c
