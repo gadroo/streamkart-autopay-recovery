@@ -208,20 +208,24 @@ flowchart TD
 
 ---
 
-## 🎬 The 10 Customer Scenarios
+## Customer Scenarios
 
-| # | Customer | Plan | Failure Reason | Expected Flow |
-|---|----------|------|----------------|---------------|
-| 1 | **Ananya Sharma** | Standard (₹299) | Insufficient balance | Soft decline → Offer retry OR suggest downgrade to Basic (₹199) |
-| 2 | **Rohit Verma** | Standard Plus (₹349) | Insufficient balance (last retry) | Warn this is final attempt → Offer retry OR downgrade |
-| 3 | **Meera Iyer** | Family (₹499) | Card expired | Hard decline → Send card update link → Suggest downgrade if hesitant |
-| 4 | **Vikram Singh** | Premium Annual (₹4999) | Card expired (high-value) | Send link → Offer human follow-up for priority support |
-| 5 | **Priya Nair** | Family (₹499) | Bank blocked | Coach to call bank → Schedule retry OR suggest downgrade |
-| 6 | **Arjun Patel** | Standard (₹299) | Mandate revoked | HARD STOP → Cannot retry → Offer fresh mandate (no pressure) |
-| 7 | **Kavita Joshi** | Standard Plus (₹349) | Mandate expired | Send new mandate link → Suggest downgrade if hesitant |
-| 8 | **Sameer Khan** | Family (₹499) | Retry cap exhausted | Server refuses retry → Escalate to human |
-| 9 | **Neha Gupta** | Standard (₹299) | No failure, wants to pause | Honor pause instantly → Suggest downgrade as alternative |
-| 10 | **Ramesh Kumar** | Family (₹499) | Angry, disputes charge | De-escalate → Don't argue → Escalate to human with summary |
+When you call, Sana will ask who you'd like to play. Just say a name:
+
+| Name | Scenario |
+|------|----------|
+| **Ananya** | Insufficient balance, needs retry |
+| **Rohit** | Insufficient balance, final retry warning |
+| **Meera** | Expired card, needs update link |
+| **Vikram** | Expired card, high-value annual plan |
+| **Priya** | Bank blocked card, needs to call bank |
+| **Arjun** | Mandate revoked by customer |
+| **Kavita** | Mandate expired, needs fresh mandate |
+| **Sameer** | Retry cap exhausted, needs human escalation |
+| **Neha** | No failure, wants to pause subscription |
+| **Ramesh** | Angry, disputes charge |
+
+Just say "I'm Arjun" or "Let me play Meera" and Sana will load that customer's account.
 
 ---
 
