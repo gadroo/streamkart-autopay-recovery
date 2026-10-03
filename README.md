@@ -2,8 +2,6 @@
 
 An intelligent AI voice agent that recovers failed subscription payments through natural conversation. Built for Razorpay Agent Studio.
 
-![Architecture](docs/architecture.png)
-
 ## 🎯 What This Does
 
 This voice agent calls customers whose subscription payments failed, identifies the specific issue, and guides them to a solution — retry scheduling, card updates via SMS, or plan downgrades. It handles 10 different failure scenarios with intelligent routing, guardrails, and escalation logic.
