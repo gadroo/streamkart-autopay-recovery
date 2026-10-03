@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamKart Payment Recovery - Live Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .widget-container {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+        }
+        
+        .retell-widget {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .feature p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎙️ StreamKart Payment Recovery</h1>
+            <p>AI Voice Agent - Live Demo</p>
+        </div>
+        
+        <div class="content">
+            <div class="instructions">
+                <h2>How to Test</h2>
+                <ol>
+                    <li><strong>Click the call button</strong> below to start a conversation with Sana</li>
+                    <li><strong>Allow microphone access</strong> when prompted</li>
+                    <li><strong>Try different scenarios:</strong>
+                        <ul style="margin-top: 8px; margin-left: 20px;">
+                            <li>Act as a customer with insufficient funds</li>
+                            <li>Say your card expired</li>
+                            <li>Ask to cancel the subscription</li>
+                            <li>Speak in Hindi or Hinglish</li>
+                        </ul>
+                    </li>
+                    <li><strong>Test the guardrails:</strong> Try to convince the agent to break rules (it won't)</li>
+                </ol>
+            </div>
+            
+            <div class="widget-container">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading voice widget...</p>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered</h3>
+                    <p>GPT-4.1 with ElevenLabs voice</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Guardrails</h3>
+                    <p>Server-side enforcement</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Multilingual</h3>
+                    <p>Hindi, English, Hinglish</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-time</h3>
+                    <p>Live backend integration</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Built for Razorpay Agent Studio FDE Assignment
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@retellai/widget@latest/dist/widget.min.js"></script>
+    <script>
+        // Initialize Retell widget
+        window.addEventListener('DOMContentLoaded', () => {
+            const widgetContainer = document.querySelector('.widget-container');
+            
+            // Create widget with your agent ID
+            const widget = new RetellWebClient({
+                agentId: 'agent_86c8f0465e14717603dd69e3e1'
+            });
+            
+            // Wait a bit for the script to load
+            setTimeout(() => {
+                widgetContainer.innerHTML = '';
+                widget.createWidget({
+                    container: widgetContainer,
+                    theme: 'light',
+                    size: 'large'
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

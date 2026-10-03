@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: streamkart-demo
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./web-demo
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

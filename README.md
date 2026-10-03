@@ -6,8 +6,8 @@ An intelligent AI voice agent that recovers failed subscription payments through
 
 This voice agent calls customers whose subscription payments failed, identifies the specific issue, and guides them to a solution — retry scheduling, card updates via SMS, or plan downgrades. It handles 10 different failure scenarios with intelligent routing, guardrails, and escalation logic.
 
-**Live demo:** [Test the agent here](https://widget.retellai.com/call/[CALL_ID]?access_token=[TOKEN])  
-**Video walkthrough:** [Watch all 10 scenarios](https://drive.google.com/drive/folders/[FOLDER_ID])
+**🔴 Live demo:** [Test the agent now](https://widget.retellai.com/call/call_02b4983701fc7497bb7fc83e2e6?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnQiLCJleHAiOjE3OTEwNTg1OTIsIm5iZiI6MTc5MTA1MDc5MiwiaWF0IjoxNzkxMDUwNzkyLCJpZGVudGl0eSI6ImNsaWVudCIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJjYW5QdWJsaXNoIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWV9LCJjYWxsX2lkIjoiY2FsbF8wMmI0OTgzNzAxZmM3NDk3YmI3ZmM4M2UyZTYiLCJpbnN0IjoiaS0wNmY5OGE4Mjk5YjNmMmU4YiJ9.VYp9YpZbGKJYw8q3p2qK9qX5wR3nL8mT6vJ2kP1dRDuQ) (no setup needed)  
+**Backend:** https://streamkart-autopay-recovery.onrender.com (always on)
 
 ---
 

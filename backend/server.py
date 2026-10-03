@@ -397,6 +397,31 @@ def admin_reset():
     return {"ok": True, "reset": True}
 
 
+@app.post("/tools/list_customers")
+def list_customers(x_api_key: Optional[str] = Header(None)):
+    """List all available customer personas for demo."""
+    _check_auth(x_api_key)
+    personas = []
+    for cid, c in STATE.items():
+        reason_map = {
+            "insufficient_balance": "insufficient balance",
+            "card_expired": "expired card",
+            "bank_blocked": "bank blocked card",
+            "mandate_revoked": "mandate revoked",
+            "mandate_expired": "mandate expired",
+            None: "no failure"
+        }
+        personas.append({
+            "customer_id": cid,
+            "name": c["name"],
+            "plan": c["plan"],
+            "amount_inr": c["amount_inr"],
+            "failure_reason": reason_map.get(c["failure_reason"], c["failure_reason"]),
+            "scenario": c.get("notes", "")[:80]
+        })
+    return {"personas": personas}
+
+
 @app.get("/admin/state")
 def admin_state():
     """Read-only view of live state — used in the demo video to show DB changes."""
