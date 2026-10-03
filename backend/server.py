@@ -87,6 +87,15 @@ def _find_by_phone(phone: str) -> Optional[dict]:
     return None
 
 
+def _find_by_name(name: str) -> Optional[dict]:
+    """Find customer by name (case-insensitive partial match)."""
+    name_lower = name.lower().strip()
+    for c in STATE.values():
+        if name_lower in c["name"].lower() or c["name"].lower() in name_lower:
+            return c
+    return None
+
+
 def _recovery_options(c: dict) -> dict:
     """G2/G3: server computes what is ALLOWED — the agent never decides this."""
     reason = c["failure_reason"]
@@ -142,7 +151,8 @@ def _recovery_options(c: dict) -> dict:
 # ---------------------------------------------------------------- request models
 
 class CtxIn(BaseModel):
-    phone: str
+    phone: Optional[str] = None
+    name: Optional[str] = None
 
 class LinkIn(BaseModel):
     customer_id: str
@@ -179,12 +189,20 @@ def _check_auth(x_api_key: Optional[str]) -> None:
 def get_recovery_context(body: CtxIn, x_api_key: Optional[str] = Header(None)):
     """Tool 1: identify caller + fetch verified context + what is allowed."""
     _check_auth(x_api_key)
-    c = _find_by_phone(body.phone)
+    
+    # Support both phone and name lookups
+    c = None
+    if body.phone:
+        c = _find_by_phone(body.phone)
+    elif body.name:
+        c = _find_by_name(body.name)
+    
     if not c:
-        _audit("context_miss", {"phone": body.phone})
+        identifier = body.phone or body.name or "unknown"
+        _audit("context_miss", {"identifier": identifier})
         return {"found": False,
-                "say_hint": "Caller not matched to a customer record. Verify the phone "
-                            "number politely; if no match, offer to escalate to a human."}
+                "say_hint": "Caller not matched to a customer record. Ask for their name or phone number politely."}
+    
     allowed = _recovery_options(c)
     _audit("context_lookup", {"customer_id": c["customer_id"]})
     return {
